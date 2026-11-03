@@ -1,0 +1,76 @@
+:root{
+  --ink:#0F2A33; --muted:#5B6F77; --paper:#F2F5F6; --card:#fff; --line:#DCE4E7;
+  --teal:#0E7C86; --teal-d:#0A5E66; --good:#2E8B57; --warn:#C98A0B; --bad:#C8453B;
+  --r:14px; --font:"Segoe UI",system-ui,-apple-system,Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font);line-height:1.5}
+h1{font-size:1.4rem;margin:0}
+h2{font-size:1rem;margin:0 0 12px}
+.sub{margin:2px 0 0;color:var(--muted);font-size:.9rem}
+
+.top{position:sticky;top:0;z-index:5;display:flex;gap:12px;align-items:center;justify-content:space-between;
+  padding:14px clamp(16px,4vw,32px);background:var(--ink);color:#fff}
+.top .sub{color:#9FB4BB}
+
+button{font:inherit;cursor:pointer}
+button:focus-visible{outline:3px solid #8FD6DC;outline-offset:2px}
+.scan{display:inline-flex;gap:8px;align-items:center;border:0;border-radius:999px;padding:12px 20px;
+  background:var(--teal);color:#fff;font-weight:600;transition:background .15s}
+.scan:hover{background:#12929E}
+
+main{max-width:1100px;margin:0 auto;padding:20px clamp(16px,4vw,32px) 40px;display:grid;gap:16px}
+.panel,.kpi{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:16px}
+
+.kpis{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.kpi .label{color:var(--muted);font-size:.85rem}
+.kpi .value{font-size:1.7rem;font-weight:700;margin:2px 0}
+.kpi .note{font-size:.85rem;color:var(--muted)}
+.kpi.risk{border-left:6px solid var(--warn)}
+.kpi.risk .value{color:var(--warn)}
+.up{color:var(--good)} .down{color:var(--bad)}
+
+.grid{display:grid;gap:16px;grid-template-columns:2fr 1fr}
+@media (max-width:800px){.grid{grid-template-columns:1fr}}
+
+svg.chart{width:100%;height:auto;display:block}
+.chart .axis{stroke:var(--line)} .chart text{fill:var(--muted);font-size:11px}
+.chart .area{fill:rgba(14,124,134,.12)} .chart .line{fill:none;stroke:var(--teal);stroke-width:2.5}
+.chart .dot{fill:#fff;stroke:var(--teal);stroke-width:2}
+
+.bar{margin-bottom:12px}
+.bar .row{display:flex;justify-content:space-between;font-size:.9rem}
+.bar .track{height:10px;border-radius:99px;background:#E8EEF0;overflow:hidden;margin-top:4px}
+.bar .fill{height:100%;border-radius:99px}
+
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:.92rem}
+th,td{text-align:left;padding:10px 8px;border-bottom:1px solid var(--line);white-space:nowrap}
+th{color:var(--muted);font-weight:600}
+.tag{display:inline-block;padding:2px 10px;border-radius:99px;font-size:.8rem;background:#E8EEF0}
+.tag.done{background:#DDF1E6;color:#1E6B40} .tag.wait{background:#FBEFD2;color:#8A5E00}
+.thumb{width:36px;height:36px;border-radius:6px;object-fit:cover;vertical-align:middle;margin-right:8px}
+
+/* ---------- الكاميرا ---------- */
+dialog{border:0;padding:0;width:min(560px,100vw);max-height:100dvh;border-radius:var(--r);background:#000;color:#fff;overflow:hidden}
+dialog::backdrop{background:rgba(5,15,18,.7)}
+dialog video,dialog img{display:block;width:100%;max-height:70dvh;object-fit:contain;background:#000}
+.cam-msg{margin:0;padding:24px;text-align:center}
+.cam-actions{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 16px;background:#0B1C22}
+.ghost,.primary{border-radius:999px;padding:10px 18px;border:1px solid #3B545C;background:transparent;color:#fff}
+.primary{background:var(--teal);border-color:var(--teal);font-weight:600}
+.shot{width:64px;height:64px;border-radius:50%;border:4px solid #fff;background:#ffffff33}
+.shot:active{background:#fff}
+/* كل حالة بتظهر عناصر معينة بس */
+dialog[data-state="live"] #preview, dialog[data-state="live"] #camMsg,
+dialog[data-state="live"] #retakeBtn, dialog[data-state="live"] #useBtn,
+dialog[data-state="review"] #video, dialog[data-state="review"] #camMsg,
+dialog[data-state="review"] #shotBtn,
+dialog[data-state="error"] #video, dialog[data-state="error"] #preview,
+dialog[data-state="error"] #shotBtn, dialog[data-state="error"] #retakeBtn,
+dialog[data-state="error"] #useBtn {display:none}
+
+#toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,20px);opacity:0;pointer-events:none;
+  background:var(--ink);color:#fff;padding:12px 18px;border-radius:12px;transition:.25s;max-width:90vw}
+#toast.show{opacity:1;transform:translate(-50%,0)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
