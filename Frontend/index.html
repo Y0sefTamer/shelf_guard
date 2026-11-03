@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Scan & Insight</title>
+  <meta name="theme-color" content="#0F2A33">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <div>
+      <h1>Scan &amp; Insight</h1>
+      <p class="sub">Sales, risk and scanned documents in one place</p>
+    </div>
+    <!-- الزرار المطلوب في التاسك: أول ضغطة بيفتح الكاميرا -->
+    <button id="scanBtn" class="scan" type="button">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h3l2-3h6l2 3h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>
+      Scan document
+    </button>
+  </header>
+
+  <main>
+    <section class="kpis" id="kpis" aria-label="Key figures"></section>
+
+    <section class="grid">
+      <article class="panel wide">
+        <h2>Monthly sales (EGP)</h2>
+        <div id="salesChart"></div>
+      </article>
+      <article class="panel">
+        <h2>Risk by category</h2>
+        <div id="riskBars"></div>
+      </article>
+    </section>
+
+    <section class="panel">
+      <h2>Recent scans</h2>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Document</th><th>Date</th><th>Status</th></tr></thead>
+          <tbody id="scanRows"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="camera" data-state="live" aria-label="Camera">
+    <video id="video" autoplay playsinline muted></video>
+    <img id="preview" alt="Captured document">
+    <p id="camMsg" class="cam-msg" role="alert"></p>
+    <canvas id="canvas" hidden></canvas>
+    <div class="cam-actions">
+      <button type="button" id="closeBtn" class="ghost">Close</button>
+      <button type="button" id="shotBtn" class="shot" aria-label="Take photo"></button>
+      <button type="button" id="retakeBtn" class="ghost">Retake</button>
+      <button type="button" id="useBtn" class="primary">Use photo</button>
+    </div>
+  </dialog>
+
+  <div id="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
